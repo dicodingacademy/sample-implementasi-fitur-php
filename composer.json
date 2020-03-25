@@ -1,0 +1,17 @@
+{
+    "name": "dicoding/fiturchatbotphp",
+    "description": "implementasi fitur chatbot di php",
+    "type": "project",
+    "require": {
+        "php": "^7.3",
+        "linecorp/line-bot-sdk": "^4.2",
+        "slim/slim": "^4.4",
+        "slim/psr7": "^1.0",
+        "nyholm/psr7": "^1.2",
+        "nyholm/psr7-server": "^0.4.1",
+        "guzzlehttp/psr7": "^1.6",
+        "http-interop/http-factory-guzzle": "^1.0",
+        "laminas/laminas-diactoros": "^2.2"
+    },
+    "minimum-stability": "stable"
+}
