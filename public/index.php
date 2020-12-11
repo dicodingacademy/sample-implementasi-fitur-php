@@ -15,8 +15,8 @@ use \LINE\LINEBot\SignatureValidator as SignatureValidator;
 $pass_signature = true;
 
 // set LINE channel_access_token and channel_secret
-$channel_access_token = "Isi dengan channel access token Anda";
-$channel_secret = "Isi dengan channel secret Anda";
+$channel_access_token = "";
+$channel_secret = "";
 
 // inisiasi objek bot
 $httpClient = new CurlHTTPClient($channel_access_token);
@@ -135,6 +135,7 @@ $app->post('/webhook', function (Request $request, Response $response) use ($cha
                 }
             }
         }
+        return $response->withStatus(200, 'for Webhook!'); //buat ngasih response 200 ke pas verify webhook
     }
     return $response->withStatus(400, 'No event sent!');
 });
@@ -161,7 +162,7 @@ $app->get('/pushmessage', function ($req, $response) use ($bot) {
 
     $response->getBody()->write("Pesan push berhasil dikirim!");
     return $response
-        ->withHeader('Content-Type', 'application/json')
+        //->withHeader('Content-Type', 'application/json') //baris ini dapat dihilangkan karena hanya menampilkan pesan di browser
         ->withStatus($result->getHTTPStatus());
 });
 
@@ -181,7 +182,7 @@ $app->get('/multicast', function ($req, $response) use ($bot) {
 
     $response->getBody()->write("Pesan multicast berhasil dikirim!");
     return $response
-        ->withHeader('Content-Type', 'application/json')
+        //->withHeader('Content-Type', 'application/json') //baris ini dapat dihilangkan karena hanya menampilkan pesan di browser
         ->withStatus($result->getHTTPStatus());
 });
 
