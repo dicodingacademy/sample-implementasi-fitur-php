@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex\ContainerBuilder;
 
 use LINE\LINEBot\MessageBuilder\Flex\ContainerBuilder\CarouselContainerBuilder;
@@ -26,7 +27,6 @@ use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\TextComponentBuilder;
 
 class CarouselContainerBuilderTest extends TestCase
 {
-
     public function test()
     {
         $json = <<<JSON

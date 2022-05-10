@@ -18,16 +18,19 @@
 
 namespace LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 
-use LINE\LINEBot\TemplateActionBuilder;
+use LINE\LINEBot\Constant\Flex\ComponentAdjustMode;
 use LINE\LINEBot\Constant\Flex\ComponentAlign;
 use LINE\LINEBot\Constant\Flex\ComponentFontSize;
 use LINE\LINEBot\Constant\Flex\ComponentFontWeight;
 use LINE\LINEBot\Constant\Flex\ComponentGravity;
 use LINE\LINEBot\Constant\Flex\ComponentMargin;
-use LINE\LINEBot\Constant\Flex\ComponentType;
+use LINE\LINEBot\Constant\Flex\ComponentPosition;
+use LINE\LINEBot\Constant\Flex\ComponentSpacing;
 use LINE\LINEBot\Constant\Flex\ComponentTextDecoration;
 use LINE\LINEBot\Constant\Flex\ComponentTextStyle;
+use LINE\LINEBot\Constant\Flex\ComponentType;
 use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder;
+use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\Util\BuildUtil;
 
 /**
@@ -78,13 +81,16 @@ class TextComponentBuilder implements ComponentBuilder
     /** @var string */
     private $offsetEnd;
 
+    /** @var ComponentAdjustMode */
+    private $adjustMode;
+
     /** @var array */
     private $component;
 
     /**
      * TextComponentBuilder constructor.
      *
-     * @param string $text
+     * @param string|null $text
      * @param int|null $flex
      * @param ComponentMargin|null $margin
      * @param ComponentFontSize|null $size
@@ -171,6 +177,11 @@ class TextComponentBuilder implements ComponentBuilder
     /**
      * Set size.
      *
+     * specifiable pixel and keyword.
+     * (e.g.
+     * pixel: 5px
+     * keyword: xxs (defined in ComponentFontSize)
+     *
      * @param ComponentFontSize|string|null $size
      * @return TextComponentBuilder
      */
@@ -255,7 +266,7 @@ class TextComponentBuilder implements ComponentBuilder
     /**
      * Set style.
      *
-     * @param string|null $style
+     * @param ComponentTextStyle|string|null $style
      * @return TextComponentBuilder
      */
     public function setStyle($style)
@@ -267,7 +278,7 @@ class TextComponentBuilder implements ComponentBuilder
     /**
      * Set decoration.
      *
-     * @param string|null $decoration
+     * @param ComponentTextDecoration|string|null $decoration
      * @return TextComponentBuilder
      */
     public function setDecoration($decoration)
@@ -319,7 +330,7 @@ class TextComponentBuilder implements ComponentBuilder
         $this->offsetTop = $offsetTop;
         return $this;
     }
-    
+
     /**
      * Set offsetBottom.
      *
@@ -337,7 +348,7 @@ class TextComponentBuilder implements ComponentBuilder
         $this->offsetBottom = $offsetBottom;
         return $this;
     }
-    
+
     /**
      * Set offsetStart.
      *
@@ -355,7 +366,7 @@ class TextComponentBuilder implements ComponentBuilder
         $this->offsetStart = $offsetStart;
         return $this;
     }
-    
+
     /**
      * Set offsetEnd.
      *
@@ -371,6 +382,18 @@ class TextComponentBuilder implements ComponentBuilder
     public function setOffsetEnd($offsetEnd)
     {
         $this->offsetEnd = $offsetEnd;
+        return $this;
+    }
+
+    /**
+     * Set adjustMode
+     *
+     * @param ComponentAdjustMode|null $adjustMode
+     * @return $this
+     */
+    public function setAdjustMode($adjustMode)
+    {
+        $this->adjustMode = $adjustMode;
         return $this;
     }
 
@@ -417,6 +440,7 @@ class TextComponentBuilder implements ComponentBuilder
             'offsetBottom' => $this->offsetBottom,
             'offsetStart' => $this->offsetStart,
             'offsetEnd' => $this->offsetEnd,
+            'adjustMode' => $this->adjustMode,
         ]);
 
         if (isset($this->contents)) {

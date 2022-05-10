@@ -12,6 +12,7 @@ namespace Slim\Psr7;
 
 use InvalidArgumentException;
 
+use function array_key_exists;
 use function array_replace;
 use function count;
 use function explode;
@@ -89,7 +90,7 @@ class Cookies
      */
     public function get(string $name, $default = null)
     {
-        return isset($this->requestCookies[$name]) ? $this->requestCookies[$name] : $default;
+        return array_key_exists($name, $this->requestCookies) ? $this->requestCookies[$name] : $default;
     }
 
     /**
@@ -169,7 +170,10 @@ class Cookies
             $result .= '; HttpOnly';
         }
 
-        if (isset($properties['samesite']) && in_array(strtolower($properties['samesite']), ['lax', 'strict'], true)) {
+        if (
+            isset($properties['samesite'])
+            && in_array(strtolower($properties['samesite']), ['lax', 'strict', 'none'], true)
+        ) {
             // While strtolower is needed for correct comparison, the RFC doesn't care about case
             $result .= '; SameSite=' . $properties['samesite'];
         }

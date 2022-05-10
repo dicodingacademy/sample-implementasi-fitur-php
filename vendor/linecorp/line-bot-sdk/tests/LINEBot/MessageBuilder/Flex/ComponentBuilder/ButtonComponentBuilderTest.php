@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 
 use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\ButtonComponentBuilder;
@@ -29,7 +30,6 @@ use LINE\LINEBot\Constant\Flex\ComponentPosition;
 
 class ButtonComponentBuilderTest extends TestCase
 {
-
     public function test()
     {
         $result = <<<JSON

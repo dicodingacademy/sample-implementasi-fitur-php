@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 
 use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\IconComponentBuilder;
@@ -27,7 +28,6 @@ use LINE\LINEBot\Constant\Flex\ComponentSpacing;
 
 class IconComponentBuilderTest extends TestCase
 {
-
     public function test()
     {
         $json = <<<JSON

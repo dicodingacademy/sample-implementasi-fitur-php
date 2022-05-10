@@ -36,6 +36,10 @@ class CurlHTTPClient implements HTTPClient
     private $authHeaders;
     /** @var array */
     private $userAgentHeader;
+    /** @var int|null */
+    private $timeout;
+    /** @var int|null */
+    private $connectTimeout;
 
     /**
      * CurlHTTPClient constructor.
@@ -85,6 +89,20 @@ class CurlHTTPClient implements HTTPClient
     }
 
     /**
+     * Sends PUT request to LINE Messaging API.
+     *
+     * @param string $url Request URL.
+     * @param array $data Request body.
+     * @param array|null $headers Request headers.
+     * @return Response Response of API request.
+     */
+    public function put($url, array $data, array $headers = null)
+    {
+        $headers = is_null($headers) ? ['Content-Type: application/json; charset=utf-8'] : $headers;
+        return $this->sendRequest('PUT', $url, $headers, $data);
+    }
+
+    /**
      * Sends DELETE request to LINE Messaging API.
      *
      * @param string $url Request URL.
@@ -97,9 +115,29 @@ class CurlHTTPClient implements HTTPClient
     }
 
     /**
+     * set curl timeout second
+     *
+     * @param int|null $timeout timeout(sec)
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+    }
+
+    /**
+     * set curl connect timeout second
+     *
+     * @param int|null $connectTimeout connectTimeout(sec)
+     */
+    public function setConnectTimeout($connectTimeout)
+    {
+        $this->connectTimeout = $connectTimeout;
+    }
+
+    /**
      * @param string $method
      * @param array $headers
-     * @param string|null $reqBody
+     * @param array|string|null $reqBody
      * @return array cUrl options
      */
     private function getOptions($method, $headers, $reqBody)
@@ -123,6 +161,9 @@ class CurlHTTPClient implements HTTPClient
                 } elseif (in_array('Content-Type: application/x-www-form-urlencoded', $headers)) {
                     $options[CURLOPT_POST] = true;
                     $options[CURLOPT_POSTFIELDS] = http_build_query($reqBody);
+                } elseif (in_array('Content-Type: multipart/form-data', $headers)) {
+                    $options[CURLOPT_POST] = true;
+                    $options[CURLOPT_POSTFIELDS] = $reqBody;
                 } elseif (!empty($reqBody)) {
                     $options[CURLOPT_POST] = true;
                     $options[CURLOPT_POSTFIELDS] = json_encode($reqBody);
@@ -132,6 +173,21 @@ class CurlHTTPClient implements HTTPClient
                 }
             }
         }
+        if ($method === 'PUT') {
+            if (in_array('Content-Type: multipart/form-data', $headers)) {
+                $options[CURLOPT_POSTFIELDS] = $reqBody;
+            } elseif (!empty($reqBody)) {
+                $options[CURLOPT_POSTFIELDS] = json_encode($reqBody);
+            } else {
+                $options[CURLOPT_POSTFIELDS] = $reqBody;
+            }
+        }
+        if (!is_null($this->timeout)) {
+            $options[CURLOPT_TIMEOUT] = $this->timeout;
+        }
+        if (!is_null($this->connectTimeout)) {
+            $options[CURLOPT_CONNECTTIMEOUT] = $this->connectTimeout;
+        }
         return $options;
     }
 
@@ -139,7 +195,7 @@ class CurlHTTPClient implements HTTPClient
      * @param string $method
      * @param string $url
      * @param array $additionalHeader
-     * @param string|null $reqBody
+     * @param string|array|null $reqBody
      * @return Response
      * @throws CurlExecutionException
      */

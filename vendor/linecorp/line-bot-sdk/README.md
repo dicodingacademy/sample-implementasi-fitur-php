@@ -1,6 +1,6 @@
 # LINE Messaging API SDK for PHP
 
-[![Build Status](https://travis-ci.org/line/line-bot-sdk-php.svg?branch=master)](https://travis-ci.org/line/line-bot-sdk-php)
+[![Build Status](https://github.com/line/line-bot-sdk-php/actions/workflows/php-checks.yml/badge.svg?branch=master)](https://github.com/line/line-bot-sdk-php/actions)
 
 
 ## Introduction
@@ -18,7 +18,7 @@ See the official API documentation for more information.
 
 ## Requirements
 
-- PHP 5.5 or later
+- PHP 5.6 or later
 
 
 ## Installation
@@ -161,10 +161,11 @@ A full-stack (and slightly complex) sample implementation. This application demo
 
 [https://line.github.io/line-bot-sdk-php/](https://line.github.io/line-bot-sdk-php/)
 
-This library provides PHPDoc to describe how to use the methods. You can generate the documentation using [apigen](http://www.apigen.org/) using the following command.
+This library provides PHPDoc to describe how to use the methods. You can generate the documentation using [phpDocumenter](https://docs.phpdoc.org/) using the following command.
 
 ```
-$ make doc
+$ wget https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0/phpDocumentor.phar
+$ php phpDocumentor.phar run -d src -t docs
 ```
 
 The HTML files are generated in `docs/`.
@@ -191,6 +192,21 @@ See also
 
 A very simple SDK (subset) for the LINE Messaging API for PHP.
 line-bot-sdk-tiny provides a simple interface and functions which makes it a good way to learn how to use the LINE Messaging API.
+
+### Laravel Support
+Easy to use from Laravel.
+After installed, add `LINE_BOT_CHANNEL_ACCESS_TOKEN` and `LINE_BOT_CHANNEL_SECRET` to `.env`
+
+```
+LINE_BOT_CHANNEL_ACCESS_TOKEN=<Channel Access Token>
+LINE_BOT_CHANNEL_SECRET=<Channel Secret>
+```
+
+then you can use `LINEBot` facade like following.
+
+```
+$profile = \LINEBot::getProfile($userId);
+```
 
 ## Help and media
 

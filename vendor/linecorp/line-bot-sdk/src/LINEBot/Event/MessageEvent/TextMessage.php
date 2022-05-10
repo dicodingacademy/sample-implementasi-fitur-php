@@ -28,6 +28,20 @@ use LINE\LINEBot\Event\MessageEvent;
 class TextMessage extends MessageEvent
 {
     /**
+     * Emoji Info List
+     *
+     * @var array|null
+     */
+    private $emojis;
+
+    /**
+     * mentioned user Info List
+     *
+     * @var array|null
+     */
+    private $mentionees;
+
+    /**
      * TextMessage constructor.
      *
      * @param array $event
@@ -35,6 +49,16 @@ class TextMessage extends MessageEvent
     public function __construct($event)
     {
         parent::__construct($event);
+        if (isset($this->message['emojis'])) {
+            $this->emojis = array_map(function ($emojiInfo) {
+                return new EmojiInfo($emojiInfo);
+            }, $this->message['emojis']);
+        }
+        if (isset($this->message['mention'])) {
+            $this->mentionees = array_map(function ($mentioneeInfo) {
+                return new MentioneeInfo($mentioneeInfo);
+            }, $this->message['mention']['mentionees']);
+        }
     }
 
     /**
@@ -45,5 +69,25 @@ class TextMessage extends MessageEvent
     public function getText()
     {
         return $this->message['text'];
+    }
+
+    /**
+     * Returns emoji info list of the messages.
+     *
+     * @return array
+     */
+    public function getEmojis()
+    {
+        return $this->emojis;
+    }
+
+    /**
+     * Returns mentioned user info list of the messages.
+     *
+     * @return array|null
+     */
+    public function getMentionees()
+    {
+        return $this->mentionees;
     }
 }
