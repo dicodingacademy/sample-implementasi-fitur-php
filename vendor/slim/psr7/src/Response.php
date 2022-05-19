@@ -124,7 +124,7 @@ class Response extends Message implements ResponseInterface
         ?StreamInterface $body = null
     ) {
         $this->status = $this->filterStatus($status);
-        $this->headers = $headers ? $headers : new Headers();
+        $this->headers = $headers ? $headers : new Headers([], []);
         $this->body = $body ? $body : (new StreamFactory())->createStream();
     }
 
@@ -211,6 +211,12 @@ class Response extends Message implements ResponseInterface
 
         if (!is_string($reasonPhrase)) {
             throw new InvalidArgumentException('Response reason phrase must be a string.');
+        }
+
+        if (strpos($reasonPhrase, "\r") || strpos($reasonPhrase, "\n")) {
+            throw new InvalidArgumentException(
+                'Reason phrase contains one of the following prohibited characters: \r \n'
+            );
         }
 
         return $reasonPhrase;

@@ -26,7 +26,6 @@ use PHPUnit\Framework\TestCase;
 
 class ButtonTemplateBuilderTest extends TestCase
 {
-
     private static $tests = [
         [
             'param' => ['aaa', 'bbb', 'ccc', ['postback', 'message', 'uri']],
@@ -118,7 +117,20 @@ JSON
   ]
 }
 JSON
-        ]
+        ],
+        [
+            'param' => ["0", 'aaa', null, ['uri']],
+            'json' => <<<JSON
+{
+  "type":"buttons",
+  "title":"0",
+  "text":"aaa",
+  "actions":[
+    {"type":"uri","label":"EEE","uri":"FFF"}
+  ]
+}
+JSON
+        ],
     ];
 
     public function test()

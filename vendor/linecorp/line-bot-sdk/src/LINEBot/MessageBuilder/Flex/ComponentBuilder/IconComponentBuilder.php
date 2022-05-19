@@ -21,6 +21,8 @@ namespace LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 use LINE\LINEBot\Constant\Flex\ComponentIconAspectRatio;
 use LINE\LINEBot\Constant\Flex\ComponentIconSize;
 use LINE\LINEBot\Constant\Flex\ComponentMargin;
+use LINE\LINEBot\Constant\Flex\ComponentPosition;
+use LINE\LINEBot\Constant\Flex\ComponentSpacing;
 use LINE\LINEBot\Constant\Flex\ComponentType;
 use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 use LINE\LINEBot\Util\BuildUtil;
@@ -58,9 +60,9 @@ class IconComponentBuilder implements ComponentBuilder
     /**
      * IconComponentBuilder constructor.
      *
-     * @param string $url
+     * @param string|null $url
      * @param ComponentMargin|null $margin
-     * @param ComponentIconSize|null $size
+     * @param ComponentIconSize|string|null $size
      * @param ComponentIconAspectRatio|null $aspectRatio
      */
     public function __construct($url, $margin = null, $size = null, $aspectRatio = null)
@@ -107,6 +109,11 @@ class IconComponentBuilder implements ComponentBuilder
 
     /**
      * Set size.
+     *
+     * specifiable pixel and keyword.
+     * (e.g.
+     * pixel: 5px
+     * keyword: xxs (defined in ComponentIconSize)
      *
      * @param ComponentIconSize|string|null $size
      * @return IconComponentBuilder
@@ -160,7 +167,7 @@ class IconComponentBuilder implements ComponentBuilder
         $this->offsetTop = $offsetTop;
         return $this;
     }
-    
+
     /**
      * Set offsetBottom.
      *
@@ -178,7 +185,7 @@ class IconComponentBuilder implements ComponentBuilder
         $this->offsetBottom = $offsetBottom;
         return $this;
     }
-    
+
     /**
      * Set offsetStart.
      *
@@ -196,7 +203,7 @@ class IconComponentBuilder implements ComponentBuilder
         $this->offsetStart = $offsetStart;
         return $this;
     }
-    
+
     /**
      * Set offsetEnd.
      *

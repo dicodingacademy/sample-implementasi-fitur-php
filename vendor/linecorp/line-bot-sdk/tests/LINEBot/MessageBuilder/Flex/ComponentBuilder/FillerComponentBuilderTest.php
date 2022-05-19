@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,6 @@ use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\FillerComponentBuilder;
 
 class FillerComponentBuilderTest extends TestCase
 {
-
     public function test()
     {
         $json = <<<JSON

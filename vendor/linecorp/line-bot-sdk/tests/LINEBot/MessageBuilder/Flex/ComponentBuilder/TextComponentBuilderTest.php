@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex\ComponentBuilder;
 
 use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\TextComponentBuilder;
@@ -30,10 +31,10 @@ use LINE\LINEBot\Constant\Flex\ComponentSpacing;
 use LINE\LINEBot\Constant\Flex\ComponentPosition;
 use LINE\LINEBot\Constant\Flex\ComponentTextDecoration;
 use LINE\LINEBot\Constant\Flex\ComponentTextStyle;
+use LINE\LINEBot\Constant\Flex\ComponentAdjustMode;
 
 class TextComponentBuilderTest extends TestCase
 {
-
     public function test()
     {
         $json = <<<JSON

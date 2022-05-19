@@ -15,6 +15,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
+
 namespace LINE\Tests\LINEBot\MessageBuilder\Flex;
 
 use LINE\LINEBot\MessageBuilder\Flex\BlockStyleBuilder;
@@ -22,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class BlockStyleBuilderTest extends TestCase
 {
-
     public function test()
     {
         $json = <<<JSON
